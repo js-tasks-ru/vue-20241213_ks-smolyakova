@@ -1,53 +1,30 @@
-import { defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 export default defineComponent({
   name: 'CalculatorApp',
 
   setup() {
-    const result = ref(0);
     const firstOperand = ref(0);
     const secondOperand = ref(0);
     const operator = ref(null);
 
-    const errorMessage = ref('');
-    
-    watch(operator, () => {
-      calculate();
-    });
-    
-    watch(firstOperand, () => {
-      calculate();
-    });
-    
-    watch(secondOperand, () => {
-      calculate();
-    });
+    const result = computed(() => {
+      return calculate()
+    })
     
     function calculate() {
-      errorMessage.value = '';
-      
       switch (operator.value) {
         case 'sum': {
-          result.value = firstOperand.value + secondOperand.value;
-          break;
+          return firstOperand.value + secondOperand.value;
         }
         case 'subtract': {
-          result.value = firstOperand.value - secondOperand.value;
-          break;
+          return firstOperand.value - secondOperand.value;
         }
         case 'multiply': {
-          result.value = firstOperand.value * secondOperand.value;
-          break;
+          return firstOperand.value * secondOperand.value;
         }
         case 'divide': {
-          if (secondOperand.value === 0) {
-            errorMessage.value = 'На ноль делить нельзя!';
-            result.value = null;
-            return;
-          }
-          
-          result.value = firstOperand.value / secondOperand.value;
-          break;
+          return firstOperand.value / secondOperand.value;
         }
       }
     }
@@ -56,9 +33,7 @@ export default defineComponent({
       result,
       operator,
       firstOperand,
-      secondOperand,
-      
-      errorMessage
+      secondOperand
     }},
 
 
@@ -79,8 +54,6 @@ export default defineComponent({
       <div>=</div>
 
       <output>{{ result }}</output>
-
-      <div v-if="errorMessage.length"> {{ errorMessage }} </div>
     </div>
   `,
 })

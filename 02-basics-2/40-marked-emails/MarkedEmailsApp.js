@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, watch } from 'vue'
+import { computed, defineComponent, ref } from 'vue'
 
 // Значения взяты из https://jsonplaceholder.typicode.com/comments
 export const emails = [
@@ -33,18 +33,14 @@ export default defineComponent({
   name: 'MarkedEmailsApp',
 
   setup() {
-    const allEmails = ref([]);
     const searchEmail = ref('');
-    
-    emails.forEach(email => {
-      allEmails.value.push({email: email, marked: false})
-    });
-      
-    watch(searchEmail, () => {
-      allEmails.value.forEach(email => {
-        email.marked = searchEmail.value.length ? email.email.indexOf(searchEmail.value) >= 0 : false
-      })
-    });
+
+    const allEmails = computed(() => {
+      return emails.map(email => ({
+        email,
+        marked: searchEmail.value ? email.toLowerCase().includes(searchEmail.value) : false
+      }))
+    })
     
     return {
       allEmails,
