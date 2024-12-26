@@ -1,4 +1,4 @@
-import { defineComponent, toRef } from 'vue'
+import { defineComponent } from 'vue'
 import { UiButton } from '@shgk/vue-course-ui'
 import './UiCounter.css'
 
