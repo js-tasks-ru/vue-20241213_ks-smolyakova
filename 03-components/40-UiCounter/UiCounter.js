@@ -24,7 +24,7 @@ export default defineComponent({
     max: {
       type: Number,
       required: false,
-      default: null
+      default: Infinity
     }
   },
 
@@ -49,7 +49,7 @@ export default defineComponent({
     <div class="counter">
       <UiButton aria-label="Decrement" :disabled="count <= min" @click="decCounter">➖</UiButton>
       <span class="count" data-testid="count">{{ count }}</span>
-      <UiButton aria-label="Increment" :disabled="max !== null && count >= max" @click="incCounter">➕</UiButton>
+      <UiButton aria-label="Increment" :disabled="count >= max" @click="incCounter">➕</UiButton>
     </div>
   `,
 })

@@ -17,9 +17,9 @@ export default defineComponent({
 
   emits: ['removeItem'],
 
-  setup() {
+  setup(props, { emit }) {
     function removeItem(index) {
-      this.$emit('removeItem', index)
+      emit('removeItem', index)
     }
 
     return {
